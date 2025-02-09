@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntangoApi.Models
 {
-    public class Town
+    public class Cities
     {
         public int Id { get; set; }
         public string? Code { get; set; } // codice comune progressivo
@@ -22,11 +22,11 @@ namespace EntangoApi.Models
         public DateTime UpdateOn { get; set; }
     }
 
-    class TownDb : DbContext
+    class CitiesDb : DbContext
     {
-        public TownDb(DbContextOptions<TownDb> options)
+        public CitiesDb(DbContextOptions<CitiesDb> options)
             : base(options) { }
 
-        public DbSet<Town> Towns => Set<Town>();
+        public DbSet<Cities> Cities => Set<Cities>();
     }
 }

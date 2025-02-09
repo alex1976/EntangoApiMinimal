@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // SQL SERVER connection configuration
 var connectionString = builder.Configuration.GetConnectionString("EntangoDb");
 
-builder.Services.AddDbContext<TownDb>(options => {
+builder.Services.AddDbContext<CitiesDb>(options => {
     options.UseSqlServer(connectionString);
 });
 
@@ -50,14 +50,14 @@ var securityReq = new OpenApiSecurityRequirement()
 var contact = new OpenApiContact()
 {
     Name = "Alex Smith",
-    Email = "info@entango.net",
-    Url = new Uri("http://www.entango.net")
+    Email = "info@entango.tech",
+    Url = new Uri("http://www.entango.tech")
 };
 
 var license = new OpenApiLicense()
 {
     Name = "Free License",
-    Url = new Uri("http://www.entango.net")
+    Url = new Uri("http://www.entango.tech")
 };
 
 var info = new OpenApiInfo()
@@ -65,7 +65,7 @@ var info = new OpenApiInfo()
     Version = "v1",
     Title = "Minimal API - JWT Authentication with Swagger",
     Description = "Implementing JWT Authentication in Minimal API",
-    TermsOfService = new Uri("http://www.entango.net"),
+    TermsOfService = new Uri("http://www.entango.tech"),
     Contact = contact,
     License = license
 };
@@ -180,25 +180,25 @@ app.MapPost("/security/getToken", [AllowAnonymous] (UserDto user) =>
 #region Town
 
 //POST town
-app.MapPost("/towns", [Authorize] async (Town town, TownDb db) =>
+app.MapPost("/towns", [Authorize] async (Cities town, CitiesDb db) =>
 {
-    db.Towns.Add(town);
+    db.Cities.Add(town);
     await db.SaveChangesAsync();
 
     return Results.Created($"/towns/{town.Id}", town);
 }).WithTags("Towns");
 
 //GET all towns (limited to 500 elements)
-app.MapGet("/towns", /*[Authorize]*/ async (TownDb db) =>
-    await db.Towns
+app.MapGet("/towns", /*[Authorize]*/ async (CitiesDb db) =>
+    await db.Cities
     .Take(10000)
     .OrderBy(Id => Id)
     .ToListAsync())
     .WithTags("Towns"); //serve per raggruppare gli endpoints
 
 //GET by page
-app.MapGet("/towns_by_page", [Authorize] async (int pageNumber, int pageSize, TownDb db) =>
- await db.Towns
+app.MapGet("/towns_by_page", [Authorize] async (int pageNumber, int pageSize, CitiesDb db) =>
+ await db.Cities
     .Skip((pageNumber-1) * pageSize)
     .Take(pageSize)
     .ToListAsync()
@@ -206,21 +206,21 @@ app.MapGet("/towns_by_page", [Authorize] async (int pageNumber, int pageSize, To
 ).WithTags("Towns");
 
 //GET by province
-app.MapGet("/towns_by_province", [Authorize] async (string provinceCode, TownDb db) =>
-    await db.Towns
+app.MapGet("/towns_by_province", [Authorize] async (string provinceCode, CitiesDb db) =>
+    await db.Cities
     .Where(x => x.ProvinceAbbreviation==provinceCode).ToListAsync()).WithTags("Towns");
 
 //GET by id
-app.MapGet("/towns/{id}", [Authorize] async (int id, TownDb db) =>
-    await db.Towns.FindAsync(id)
-        is Town town
+app.MapGet("/towns/{id}", [Authorize] async (int id, CitiesDb db) =>
+    await db.Cities.FindAsync(id)
+        is Cities town
             ? Results.Ok(town)
             : Results.NotFound()).WithTags("Towns");
 
 //PUT
-app.MapPut("/towns/{id}", [Authorize] async (int id, Town inputTown, TownDb db) =>
+app.MapPut("/towns/{id}", [Authorize] async (int id, Cities inputTown, CitiesDb db) =>
 {
-    var town = await db.Towns.FindAsync(id);
+    var town = await db.Cities.FindAsync(id);
 
     if (town is null) return Results.NotFound();
 
@@ -234,11 +234,11 @@ app.MapPut("/towns/{id}", [Authorize] async (int id, Town inputTown, TownDb db) 
 }).WithTags("Towns");
 
 //DELETE
-app.MapDelete("/towns/{id}", [Authorize] async (int id, TownDb db) =>
+app.MapDelete("/towns/{id}", [Authorize] async (int id, CitiesDb db) =>
 {
-    if (await db.Towns.FindAsync(id) is Town town)
+    if (await db.Cities.FindAsync(id) is Cities town)
     {
-        db.Towns.Remove(town);
+        db.Cities.Remove(town);
         await db.SaveChangesAsync();
         return Results.Ok(town);
     }

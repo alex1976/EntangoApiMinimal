@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntangoApi.Models
 {
-    public class ConstructionSite
+    public class ConstructionSites
     {
         public int Id { get; set; }
         public string? Code { get; set; } // codice cantiere
@@ -19,7 +19,7 @@ namespace EntangoApi.Models
         public DateTime WorksStartDate { get; set; }
         public DateTime WorksEndDate { get; set; }
         public decimal Progress { get; set; }
-        public Town Town { get; set; } // comune del cantiere
+        public Cities Town { get; set; } // comune del cantiere
         public DateTime UpdateOn { get; set; }
     }
 
@@ -28,6 +28,6 @@ namespace EntangoApi.Models
         public ConstructionSiteDb(DbContextOptions<ConstructionSiteDb> options)
             : base(options) { }
 
-        public DbSet<ConstructionSite> ConstructionSites => Set<ConstructionSite>();
+        public DbSet<ConstructionSites> ConstructionSites => Set<ConstructionSites>();
     }
 }
