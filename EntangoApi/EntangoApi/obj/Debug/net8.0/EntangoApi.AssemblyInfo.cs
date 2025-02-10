@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EntangoApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc053c2630874e2c36f64ca3fa4ee2302c97973b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a7954edd54c428a74ea76fe90cb0109eb1be5dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("EntangoApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EntangoApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,9 +2,9 @@
 /* Update 09-02-2025 - base tables */
 
 /***************************/
-/***** Cities_It table *****/
+/***** Cities table ********/
 /***************************/
-CREATE TABLE Cities_It (
+CREATE TABLE Cities (
     Id int IDENTITY(1,1),
     Code nvarchar(5),							/* codice comune progressivo ISTAT */
     Name nvarchar(100),							/* nome comune ISTAT */
@@ -14,12 +14,46 @@ CREATE TABLE Cities_It (
     RegionDescription nvarchar(100),			/* Denominazione regione ISTAT */
     ProvinceCode nvarchar(5),					/* Sigla automobilistica ISTAT */
     ProvinceDescription nvarchar(100),			
-    ProvinceAbbreviation nvarchar(5),
+    ProvinceAbbreviation nvarchar(5),			/* Sigla automobilistica ISTAT */
     GeographicCode nvarchar(5),					/* Codice Ripartizione Geografica ISTAT */
     GeographicDescription nvarchar(100),		/* Ripartizione Geografica ISTAT */
     LandRegistryCode nvarchar(5),				/* codice catastale */
     UpdateOn date,
-	CONSTRAINT PK_PrimaryKey PRIMARY KEY CLUSTERED (Id)
+	CONSTRAINT PK_Cities_PrimaryKey PRIMARY KEY CLUSTERED (Id)
+);
+
+/****************************/
+/***** Regions table ********/
+/****************************/
+CREATE TABLE Regions (
+    Id int IDENTITY(1,1),
+    Code nvarchar(5),							/* codice regione ISTAT */
+    Name nvarchar(100),							/* nome regione */
+	RegionCapital nvarchar(100),				/* capoluogo */
+	CitiesNumber int,							/* numero comuni */
+	ProvincesNumber int,						/* numero provincie */
+	RegionalPresident nvarchar(100),			/* presidente di regione */
+	WebSite	nvarchar(100),						/* sito web */
+	Pec nvarchar(100),							/* indirizzo pec */
+	Address nvarchar(100),						/* indirizzo sede */
+    UpdateOn date,
+	CONSTRAINT PK_Regions_PrimaryKey PRIMARY KEY CLUSTERED (Id)
+);
+
+/******************************/
+/***** Provinces table ********/
+/******************************/
+CREATE TABLE Provinces (
+    Id int IDENTITY(1,1),
+    Code nvarchar(5),							/* codice provincia ISTAT */
+    Name nvarchar(100),							/* nome regione */
+	Abbreviation nvarchar(5),					/* sigla provincia */
+	CitiesNumber int,							/* numero comuni */
+	RegionCode nvarchar(5),						/* codice regione ISTAT */
+	Surface decimal (28,14),					/* superficie */
+	Residents decimal (28,14),					/* abitanti residenti */
+    UpdateOn date,
+	CONSTRAINT PK_Provinces_PrimaryKey PRIMARY KEY CLUSTERED (Id)
 );
 
 /**********************/

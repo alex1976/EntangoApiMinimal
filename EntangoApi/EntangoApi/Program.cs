@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using EntangoApi.Models;
 using EntangoApi.DTOs;
+using EntangoApi.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -177,74 +178,9 @@ app.MapPost("/security/getToken", [AllowAnonymous] (UserDto user) =>
 
 #endregion
 
-#region Town
+#region Cities
 
-//POST town
-app.MapPost("/towns", [Authorize] async (Cities town, CitiesDb db) =>
-{
-    db.Cities.Add(town);
-    await db.SaveChangesAsync();
-
-    return Results.Created($"/towns/{town.Id}", town);
-}).WithTags("Towns");
-
-//GET all towns (limited to 500 elements)
-app.MapGet("/towns", /*[Authorize]*/ async (CitiesDb db) =>
-    await db.Cities
-    .Take(10000)
-    .OrderBy(Id => Id)
-    .ToListAsync())
-    .WithTags("Towns"); //serve per raggruppare gli endpoints
-
-//GET by page
-app.MapGet("/towns_by_page", [Authorize] async (int pageNumber, int pageSize, CitiesDb db) =>
- await db.Cities
-    .Skip((pageNumber-1) * pageSize)
-    .Take(pageSize)
-    .ToListAsync()
-//await db.Books.ToListAsync()
-).WithTags("Towns");
-
-//GET by province
-app.MapGet("/towns_by_province", [Authorize] async (string provinceCode, CitiesDb db) =>
-    await db.Cities
-    .Where(x => x.ProvinceAbbreviation==provinceCode).ToListAsync()).WithTags("Towns");
-
-//GET by id
-app.MapGet("/towns/{id}", [Authorize] async (int id, CitiesDb db) =>
-    await db.Cities.FindAsync(id)
-        is Cities town
-            ? Results.Ok(town)
-            : Results.NotFound()).WithTags("Towns");
-
-//PUT
-app.MapPut("/towns/{id}", [Authorize] async (int id, Cities inputTown, CitiesDb db) =>
-{
-    var town = await db.Cities.FindAsync(id);
-
-    if (town is null) return Results.NotFound();
-
-    town.Name = inputTown.Name;
-    town.IstatCode = inputTown.IstatCode;
-    town.ProvinceCode = inputTown.ProvinceCode;
-
-    await db.SaveChangesAsync();
-
-    return Results.NoContent();
-}).WithTags("Towns");
-
-//DELETE
-app.MapDelete("/towns/{id}", [Authorize] async (int id, CitiesDb db) =>
-{
-    if (await db.Cities.FindAsync(id) is Cities town)
-    {
-        db.Cities.Remove(town);
-        await db.SaveChangesAsync();
-        return Results.Ok(town);
-    }
-
-    return Results.NotFound();
-}).WithTags("Towns");
+CitiesEndpoints.Map(app);
 
 #endregion
 
