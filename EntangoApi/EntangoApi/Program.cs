@@ -184,5 +184,17 @@ CitiesEndpoints.Map(app);
 
 #endregion
 
+#region Weather
+
+WeatherEndpoints.Map(app);
+
+#endregion
+
+#region RandomData
+
+RandomDataEndpoints.Map(app);
+
+#endregion
+
 //Run
 app.Run();

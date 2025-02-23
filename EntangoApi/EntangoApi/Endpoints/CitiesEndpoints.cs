@@ -21,7 +21,7 @@ namespace EntangoApi.Endpoints
                 await db.Cities
                 .Take(10000)
                 .OrderBy(Id => Id)
-                .ToListAsync()).WithTags("Cities"); //serve per raggruppare gli endpoints
+                .ToListAsync()).WithTags("Geography"); //serve per raggruppare gli endpoints
 
             //GET by page
             app.MapGet("/cities_by_page", /*[Authorize]*/ async (int pageNumber, int pageSize, CitiesDb db) =>
@@ -29,28 +29,28 @@ namespace EntangoApi.Endpoints
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync())
-                .WithTags("Cities");
+                .WithTags("Geography");
 
             //GET by province
             app.MapGet("/cities_by_province", /*[Authorize]*/ async (string provinceCode, CitiesDb db) =>
                  await db.Cities
                  .Where(x => x.ProvinceCode == provinceCode)
                  .ToListAsync())
-                 .WithTags("Cities");
+                 .WithTags("Geography");
 
             //GET by string
             app.MapGet("/cities_by_string", /*[Authorize]*/ async (string search, CitiesDb db) =>
                  await db.Cities
                  .Where(x => x.ProvinceCode.Contains(search) || x.Name.Contains(search) || x.RegionDescription.Contains(search) || x.ProvinceDescription.Contains(search))
                  .ToListAsync())
-                 .WithTags("Cities");
+                 .WithTags("Geography");
 
             //GET by landRegistryCode
             app.MapGet("/cities_by_landcode", /*[Authorize]*/ async (string landCode, CitiesDb db) =>
                  await db.Cities
                  .Where(x => x.LandRegistryCode == landCode)
                  .ToListAsync())
-                 .WithTags("Cities");
+                 .WithTags("Geography");
 
             ////GET by id
             //app.MapGet("/cities/{id}", /*[Authorize]*/ async (int id, CitiesDb db) =>

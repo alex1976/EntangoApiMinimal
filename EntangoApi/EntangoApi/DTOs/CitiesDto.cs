@@ -15,6 +15,7 @@
         public string? GeographicCode { get; set; }
         public string? GeographicDescription { get; set; }
         public string? LandRegistryCode { get; set; }       // codic catastale
-        public DateTime UpdateOn { get; set; }
+        
+        //public DateTime UpdateOn { get; set; }
     }
 }
