@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=EntangoApi;Username=postgres;Password=your_password
+      - OpenAI__ApiKey=${OPENAI_API_KEY}
+      - Gemini__ApiKey=${GEMINI_API_KEY}
+    depends_on:
+      - db
+    networks:
+      - entango-network
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=EntangoApi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - entango-network
+
+volumes:
+  postgres_data:
+
+networks:
+  entango-network:
+    driver: bridge

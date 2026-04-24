@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "pricelist-local": {
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "C:\\Users\\a.maramotti\\source\\repos\\EntangoApi\\McpServer\\PriceListMcpServer.csproj",
+        "--",
+        "--stdio"
+      ],
+      "env": {
+        "ENTANGO_API_BASE_URL": "http://localhost:5162"
+      }
+    },
+    "pricelist-http": {
+      "url": "http://localhost:5099/mcp"
+    },
+    "pricelist-https": {
+      "url": "https://localhost:7099/mcp"
+    }
+  }
+}

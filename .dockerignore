@@ -1,0 +1,30 @@
+# Ignora file e cartelle generati durante lo sviluppo
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Ignora cartelle di Visual Studio
+.vs/
+.vscode/
+bin/
+obj/
+out/
+
+# Ignora file di ambiente e segreti
+*.env
+appsettings.*.json
+!appsettings.json
+
+# Ignora file di sistema
+Thumbs.db
+Desktop.ini
+
+# Ignora file di log
+*.log
+
+# Ignora file temporanei
+*.tmp
+*.temp

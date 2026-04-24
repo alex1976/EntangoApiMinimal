@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EntangoApi | Project Overview</title>
+  <meta name="description" content="EntangoApi project overview: ASP.NET Core API + MCP server for Claude Desktop with PriceList and DocumentStore tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f3ea;
+      --bg-soft: #efe6d6;
+      --panel: #fffdf8;
+      --ink: #1f2a2e;
+      --muted: #5f6b6f;
+      --accent: #0e7c66;
+      --accent-2: #ea5b3a;
+      --line: #d8cfbf;
+      --shadow: 0 12px 30px rgba(31, 42, 46, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(14, 124, 102, 0.18), transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(234, 91, 58, 0.16), transparent 33%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-soft) 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .shell {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .hero {
+      display: grid;
+      gap: 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      animation: fadeUp 500ms ease-out both;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.05;
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .chip {
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .grid {
+      margin-top: 1.25rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.15rem;
+      box-shadow: var(--shadow);
+      animation: fadeUp 650ms ease-out both;
+    }
+
+    .card h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .card p,
+    .card li {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-8 { grid-column: span 8; }
+
+    .mono {
+      font-family: "IBM Plex Mono", monospace;
+      background: #152025;
+      color: #d6ece5;
+      border-radius: 12px;
+      padding: 0.8rem;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      margin-top: 0.5rem;
+      white-space: pre;
+    }
+
+    .transport {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .mode {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 0.65rem 0.75rem;
+    }
+
+    .mode strong {
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .mode span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 0.1rem;
+    }
+
+    .foot {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .grid .card:nth-child(1) { animation-delay: 80ms; }
+    .grid .card:nth-child(2) { animation-delay: 140ms; }
+    .grid .card:nth-child(3) { animation-delay: 200ms; }
+    .grid .card:nth-child(4) { animation-delay: 260ms; }
+    .grid .card:nth-child(5) { animation-delay: 320ms; }
+
+    @media (max-width: 900px) {
+      .span-7,
+      .span-5,
+      .span-6,
+      .span-4,
+      .span-8 {
+        grid-column: span 12;
+      }
+
+      .hero {
+        padding: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <span class="tag">ASP.NET Core + MCP</span>
+      <h1>EntangoApi</h1>
+      <p class="lede">
+        Backend API built for Claude Desktop integration via Model Context Protocol, and also usable as a standalone utility API for construction-focused workflows.
+      </p>
+      <div class="chips">
+        <span class="chip">.NET 9</span>
+        <span class="chip">Entity Framework Core</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Swagger/OpenAPI</span>
+        <span class="chip">Claude MCP Tools</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card span-7">
+        <h2>Capabilities</h2>
+        <ul>
+          <li>AI chat endpoints for OpenAI and Gemini</li>
+          <li>Document extraction from PDFs with Gemini</li>
+          <li>Price List CRUD and search</li>
+          <li>Document Store CRUD and binary download</li>
+          <li>Mail and SMS sending endpoints</li>
+          <li>Weather forecast via Open-Meteo integration</li>
+        </ul>
+      </article>
+
+      <article class="card span-5">
+        <h2>MCP Transports</h2>
+        <div class="transport">
+          <div class="mode">
+            <strong>stdio (local)</strong>
+            <span>Client starts process directly (best for local desktop usage).</span>
+          </div>
+          <div class="mode">
+            <strong>HTTP/HTTPS (remote)</strong>
+            <span>Clients connect to /mcp URL (best for hosted/deployed usage).</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Run the API</h2>
+        <p>Start the main API project:</p>
+        <div class="mono">dotnet run --project EntangoApi/EntangoApi.csproj</div>
+        <p style="margin-top:0.6rem;">Default local URLs:</p>
+        <div class="mono">HTTP  http://localhost:5162
+HTTPS https://localhost:7264
+Swagger http://localhost:5162/swagger</div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Run the MCP Server</h2>
+        <p>HTTP/HTTPS mode (default):</p>
+        <div class="mono">dotnet run --project McpServer/PriceListMcpServer.csproj</div>
+        <p style="margin-top:0.6rem;">stdio mode:</p>
+        <div class="mono">dotnet run --project McpServer/PriceListMcpServer.csproj -- --stdio</div>
+      </article>
+
+      <article class="card span-8">
+        <h2>Configuration Highlights</h2>
+        <ul>
+          <li>Database connection: <strong>ConnectionStrings:DefaultConnection</strong></li>
+          <li>Provider keys: <strong>OpenAI:ApiKey</strong>, <strong>Gemini:ApiKey</strong></li>
+          <li>Messaging settings: <strong>Smtp:*</strong>, <strong>Sms:*</strong></li>
+          <li>MCP endpoint settings in McpServer/appsettings.json</li>
+        </ul>
+      </article>
+
+      <article class="card span-4">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>ASP.NET Core Web API</li>
+          <li>Entity Framework Core</li>
+          <li>Npgsql PostgreSQL provider</li>
+          <li>ModelContextProtocol.AspNetCore</li>
+        </ul>
+      </article>
+    </section>
+
+    <p class="foot">Project overview page for local preview and quick onboarding.</p>
+  </main>
+</body>
+</html>

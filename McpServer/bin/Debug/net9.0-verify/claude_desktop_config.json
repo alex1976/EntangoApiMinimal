@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "pricelist-api": {
+      "url": "http://localhost:5099/mcp"
+    }
+  }
+}
