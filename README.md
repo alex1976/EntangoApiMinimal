@@ -7,13 +7,12 @@ The comunication with Claude Desktop is done through the MCP protocol, which all
 
 ASP.NET Core Web API project that exposes utility and domain APIs for:
 - Test/info endpoint
-- SMS sending
-- Email sending
-- AI chat (OpenAI and Gemini)
-- Document extraction with Gemini
-- Weather forecast (Open-Meteo)
 - Price list CRUD and search
-- Document store CRUD and download
+- SMS sending (coming soon)
+- Email sending (coming soon)
+- Document extraction with Gemini (coming soon)
+- Weather forecast (Open-Meteo)(coming soon)
+- Document store CRUD and download (coming soon)
 
 The project uses PostgreSQL with Entity Framework Core and includes Swagger/OpenAPI.
 
