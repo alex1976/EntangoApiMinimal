@@ -16,6 +16,8 @@ ASP.NET Core Web API project that exposes utility and domain APIs for:
 
 The project uses PostgreSQL with Entity Framework Core and includes Swagger/OpenAPI.
 
+MCP server as a separate project that can be run in either stdio mode (for local use with Claude Desktop) or HTTP/HTTPS mode (for remote/deployed use). It exposes the Price List APIs as MCP tools.
+
 ## Prerequisites
 
 - .NET 9 SDK
